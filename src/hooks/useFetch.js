@@ -12,10 +12,10 @@ export const useFetch = (url) => {
 
     const getFetch = async () => {
 
-      // useState({
-      //   ...state,
-      //   isLoading: true
-      // });
+      setState({
+        ...state,
+        isLoading: true
+      });
 
       const resp = await fetch(url);
       const data = await resp.json();
@@ -31,7 +31,7 @@ export const useFetch = (url) => {
 
     getFetch();
 
-  }, []);
+  }, [url]);
 
   return {
     data: state.data,
