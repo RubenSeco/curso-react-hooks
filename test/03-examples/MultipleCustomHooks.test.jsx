@@ -38,18 +38,20 @@ describe('Pruebas en <MultipleCustomHooks/>', () => {
 
   test('Debe mostrar un Title', () => {
     useFetch.mockReturnValue({
-      data: [{ title: 'Hola Mundo', price: 500 }],
+      data: { title: 'Hola Mundo', price: 500 },
       isLoading: false,
       hasError: null
     });
     render(<MultipleCustomHooks />);
 
-    screen.debug();
+    expect(screen.getByText('Hola Mundo'));
+
+    expect(screen.getByText(500));
   });
 
   test('Debe llamar la funcion de incrementar', () => {
     useFetch.mockReturnValue({
-      data: [{ title: 'Hola Mundo', price: 500 }],
+      data: { title: 'Hola Mundo', price: 500 },
       isLoading: false,
       hasError: null
     });
@@ -57,9 +59,7 @@ describe('Pruebas en <MultipleCustomHooks/>', () => {
 
     const nextButton = screen.getByRole('button', { name: 'Next Title' });
 
-    act(() => {
-      fireEvent.click(nextButton);
-    });
+    fireEvent.click(nextButton);
 
     expect(mockIncrement).toHaveBeenCalled();
   });
